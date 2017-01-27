@@ -1,0 +1,9 @@
+{
+  "name": "user",
+  "description": "My user",
+  "model": {
+    "id": "int",
+    "name": "string",
+    "_timestamps": true
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "ajaaleixo/larastart",
+  "type": "library",
+  "description": "Larastart makes it ridiculously easy to start any API or Project using Laravel",
+  "keywords": ["larastart", "laravel", "api", "boilerplate", "generator"],
+  "homepage": "http://larastart.io",
+  "license": "MIT",
+  "authors": [{
+    "name": "André Aleixo",
+    "email": "ajaaleixo@gmail.com",
+    "homepage": "http://andrealeixo.com",
+    "role": "Lead Developer"
+  }],
+  "require": {
+    "php": ">=5.4",
+    "symfony/console": "~2.8|~3.0",
+    "symfony/config": "~2.8|~3.0",
+    "symfony/yaml": "~2.8|~3.0",
+    "nesbot/carbon": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8.26|^5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Larastart\\": "src/Larastart"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\Larastart\\": "tests/Larastart"
+    }
+  },
+  "bin": ["bin/larastart"]
+}

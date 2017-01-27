@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+/** Larastart
+ *
+ * (The MIT license)
+ * Copyright (c) 2017 andrealeixo.com
+ */
+
+$app = require __DIR__ . '/../app/larastart.php';
+$app->run();

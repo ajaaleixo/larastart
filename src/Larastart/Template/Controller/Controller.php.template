@@ -1,0 +1,85 @@
+<?php
+/** Larastart
+ *
+ * (The MIT license)
+ * Copyright (c) 2017 andrealeixo.com
+ */
+
+namespace App\Http\Controllers;
+
+use App\!!modelName!!;
+
+class !!className!! extends Controller {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function getAll()
+    {
+        return !!modelName!!::paginate();
+    }
+
+    /**
+     * Process post to create.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function getById($id)
+    {
+        $resource = !!modelName!!::find($id);
+        if ($resource === null) {
+            abort(404, "Resource not found");
+        }
+        return $resource;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
+
+    /**
+     * Patch the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function patch($id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $resource = !!modelName!!::find($id);
+        if ($resource === null) {
+            abort(404, "Resource not found");
+        }
+        return $resource->delete();
+    }
+}

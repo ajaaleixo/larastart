@@ -1,0 +1,21 @@
+[
+  {
+    "name": "category",
+    "description": "My category",
+    "model": {
+      "columns": [
+        {
+          "type": "increments",
+          "name": "id"
+        },
+        {
+          "type": "string",
+          "name": "name"
+        }
+      ],
+      "_softDeletes": true,
+      "_timestamps": true,
+      "_table": "the_category_table"
+    }
+  }
+]
