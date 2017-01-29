@@ -12,7 +12,7 @@
         {
           "type": "integer",
           "name": "author_id",
-          "_index": ["author_id", "post_author"]
+          "_index": "post_author_index"
         },
         {
           "type": "string",
@@ -32,13 +32,13 @@
           "type": "smallInteger",
           "name": "status",
           "_unsigned": true,
-          "_index": ["status", "article_status"]
+          "_index": "post_status_index"
         }
       ],
       "_softDeletes": true,
       "_timestamps": true,
       "_table": "post",
-      "_hasOne": "author"
+      "_belongsTo": "author"
     }
   },
   {
@@ -67,7 +67,7 @@
           "type": "smallInteger",
           "name": "status",
           "_unsigned": true,
-          "_index": ["status", "author_status"]
+          "_index": true
         }
       ],
       "_softDeletes": true,
