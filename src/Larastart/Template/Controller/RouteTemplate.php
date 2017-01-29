@@ -32,6 +32,7 @@ class RouteTemplate extends TemplateAbstract
         if (!file_exists($this->storagePath.DIRECTORY_SEPARATOR.$this->storageFileName)) {
             $this->save(file_get_contents(__DIR__.DIRECTORY_SEPARATOR."web-header.php.template"));
         }
+
     }
 
     public function render(string $contents = ''):string
@@ -40,6 +41,7 @@ class RouteTemplate extends TemplateAbstract
         $replacePairs = array(
             '!!className!!' => $this->getClassName($this->model),
             '!!modelName!!' => strtolower($this->model->getName()),
+            'return return view(\'welcome\');' => 'return view(\'larastart-welcome\');'
         );
         return strtr($contents, $replacePairs);
     }

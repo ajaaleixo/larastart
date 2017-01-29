@@ -14,4 +14,6 @@ class !!className!! extends Model
     public $timestamps = !!timestampsValue!!;
 
     !!dates!!
+
+    !!relationships!!
 }

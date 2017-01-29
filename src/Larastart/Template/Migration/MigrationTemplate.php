@@ -196,19 +196,19 @@ class MigrationTemplate extends TemplateAbstract
     protected function getIndex(Column $col)
     {
         $str = '$table->index(%s);';
-        if (!empty($col->index())) {
-            if (is_array($col->index())) {
-                return sprintf($str, "['".implode("', '", $col->index())."']");
+        $theIndex = $col->index();
+        if (!empty($theIndex)) {
+            switch (true) {
+                case is_array($theIndex):
+                    // Compound index of two columns
+                    return sprintf($str, "['".implode("', '", $theIndex)."']");
+                case is_string($theIndex):
+                    // Column name would be indexed, index name would be the defined string
+                    return sprintf($str, "'".$col->getName()."', '".$theIndex."'");
+                case is_bool($theIndex):
+                    return sprintf($str, "'".$col->getName()."'");
             }
-            return sprintf($str, "'".$col->index()."'");
         }
         return "";
     }
-
-//$table->increments('id');
-//$table->string('name');
-//$table->string('email')->unique();
-//$table->string('password');
-//$table->rememberToken();
-//$table->timestamps();
 }
