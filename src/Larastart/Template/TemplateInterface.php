@@ -10,6 +10,6 @@ namespace Larastart\Template;
 interface TemplateInterface
 {
     public function process():bool;
-    public function render():string;
+    public function render(string $contents = ''):string;
 }
  

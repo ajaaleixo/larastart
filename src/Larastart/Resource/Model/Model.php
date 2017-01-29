@@ -17,6 +17,10 @@ class Model implements ModelInterface
     protected $table;
     protected $timestamps;
     protected $useSoftDeletes;
+    protected $hasOne;
+    protected $hasMany;
+    protected $belongsTo;
+    protected $belongsToMany;
 
     const COLUMNS_PROPERTY = "columns";
 
@@ -25,6 +29,11 @@ class Model implements ModelInterface
 
     const TABLE_PROPERTY = "_table";
     const TABLE_TEMPLATE = 'protected $table = "$tableValue";';
+
+    const RELATIONSHIP_hasOne_PROPERTY = "_hasOne";
+    const RELATIONSHIP_hasMany_PROPERTY = "_hasMany";
+    const RELATIONSHIP_belongsTo_PROPERTY = "_belongsTo";
+    const RELATIONSHIP_belongsToMany_PROPERTY = "_belongsToMany";
 
     /**
      * Model constructor.
@@ -51,6 +60,12 @@ class Model implements ModelInterface
 
         // Softdeletes property
         $this->useSoftDeletes = ArrayUtils::getOptionalIndex($properties, self::TIMESTAMPS_PROPERTY, false);
+
+        // Relationships
+        $this->hasOne = ArrayUtils::getOptionalIndex($properties, self::RELATIONSHIP_hasOne_PROPERTY, false);
+        $this->hasMany = ArrayUtils::getOptionalIndex($properties, self::RELATIONSHIP_hasMany_PROPERTY, false);
+        $this->belongsTo = ArrayUtils::getOptionalIndex($properties, self::RELATIONSHIP_belongsTo_PROPERTY, false);
+        $this->belongsToMany = ArrayUtils::getOptionalIndex($properties, self::RELATIONSHIP_belongsToMany_PROPERTY, false);
     }
 
     public function getName():string
@@ -81,5 +96,37 @@ class Model implements ModelInterface
     public function useSoftDeletes():bool
     {
         return $this->useSoftDeletes;
+    }
+
+    /**
+     * @return string|array
+     */
+    public function getHasOne()
+    {
+        return $this->hasOne;
+    }
+
+    /**
+     * @return string|array
+     */
+    public function getHasMany()
+    {
+        return $this->hasMany;
+    }
+
+    /**
+     * @return string|array
+     */
+    public function getBelongsTo()
+    {
+        return $this->belongsTo;
+    }
+
+    /**
+     * @return string|array
+     */
+    public function getBelongsToMany()
+    {
+        return $this->belongsToMany;
     }
 }

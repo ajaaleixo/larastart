@@ -11,6 +11,7 @@ use Larastart\Resource\Model\ModelInterface;
 use Larastart\Resource\ResourceFactory;
 use Larastart\Template\Controller\ControllerTemplate;
 use Larastart\Template\Controller\RouteTemplate;
+use Larastart\Utils\FileUtils;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -56,6 +57,7 @@ class MakeController extends AbstractCommand
             $this->appendRoute($resource->getModel(), $outputPathArgument);
             $output->writeln($this->success(sprintf("Generated '%s's controller", $resource->getName())));
         }
+        $this->copyView("larastart-welcome.blade.php.template", $outputPathArgument);
         $output->writeln($this->info('Finished'));
     }
 
@@ -69,5 +71,19 @@ class MakeController extends AbstractCommand
     {
         $template = new RouteTemplate($model, $path);
         $template->process();
+    }
+
+    protected function copyView($viewName , $path = "")
+    {
+        $storagePath = "";
+        $storageDir  = DIRECTORY_SEPARATOR."resources/views";
+        if (realpath($path) === false) {
+            $storagePath = getcwd().DIRECTORY_SEPARATOR.$path.$storageDir;
+        } else {
+            $storagePath = realpath($path).$storageDir;
+        }
+        FileUtils::createDirIfNotExists($storagePath);
+        copy(__DIR__."/../../Template/View/".$viewName, $storagePath.DIRECTORY_SEPARATOR.str_replace(".template", "", $viewName));
+        $this->success('Copied view ' . $viewName);
     }
 }

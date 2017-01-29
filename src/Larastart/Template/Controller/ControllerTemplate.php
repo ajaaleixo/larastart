@@ -28,9 +28,9 @@ class ControllerTemplate extends TemplateAbstract
         $this->storageFileName = $this->makeFileName($model);
     }
 
-    public function render():string
+    public function render(string $contents = ''):string
     {
-        $contents     = $this->loadTemplate();
+        $contents     = $contents ?: $this->loadTemplate();
         $replacePairs = array(
             '!!className!!' => $this->getClassName($this->model),
             '!!modelName!!' => $this->model->getName(),

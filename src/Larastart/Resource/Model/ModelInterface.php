@@ -31,4 +31,24 @@ interface ModelInterface
     public function useSoftDeletes():bool;
 
     public function getColumns():ColumnCollection;
+
+    /**
+     * @return string|array
+     */
+    public function getHasOne();
+
+    /**
+     * @return string|array
+     */
+    public function getHasMany();
+
+    /**
+     * @return string|array
+     */
+    public function getBelongsTo();
+
+    /**
+     * @return string|array
+     */
+    public function getBelongsToMany();
 }

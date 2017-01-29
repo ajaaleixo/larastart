@@ -15,6 +15,7 @@ class RouteTemplate extends TemplateAbstract
     protected $model = null;
     protected $defaultTemplatePath = __DIR__.DIRECTORY_SEPARATOR."web.php.template";
     protected $defaultStoragePath  = DIRECTORY_SEPARATOR."routes";
+    protected $flags = FILE_APPEND;
 
     public function __construct(ModelInterface $model, string $storagePath, string $templatePath = null)
     {
@@ -26,14 +27,21 @@ class RouteTemplate extends TemplateAbstract
             $this->storagePath = realpath($storagePath).$this->defaultStoragePath;
         }
         $this->storageFileName = $this->makeFileName($model);
+
+        // Create file header
+        if (!file_exists($this->storagePath.DIRECTORY_SEPARATOR.$this->storageFileName)) {
+            $this->save(file_get_contents(__DIR__.DIRECTORY_SEPARATOR."web-header.php.template"));
+        }
+
     }
 
-    public function render():string
+    public function render(string $contents = ''):string
     {
         $contents     = $this->loadTemplate();
         $replacePairs = array(
             '!!className!!' => $this->getClassName($this->model),
             '!!modelName!!' => strtolower($this->model->getName()),
+            'return return view(\'welcome\');' => 'return view(\'larastart-welcome\');'
         );
         return strtr($contents, $replacePairs);
     }
