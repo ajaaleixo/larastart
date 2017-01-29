@@ -12,6 +12,7 @@ abstract class TemplateAbstract implements TemplateInterface
     protected $templatePath = "";
     protected $storagePath  = "";
     protected $storageFileName = "";
+    protected $flags = null;
 
     /**
      * Loads the template content.
@@ -23,18 +24,35 @@ abstract class TemplateAbstract implements TemplateInterface
         return file_get_contents($this->templatePath);
     }
 
-    protected function save():bool
+    protected function save(string $content = ''):bool
     {
-        if (!file_exists($this->storagePath)) {
-            mkdir($this->storagePath, 0755, true);
-        }
-        if (false === file_put_contents($this->storagePath.DIRECTORY_SEPARATOR.$this->storageFileName, $this->render())) {
+        $this->checkDirectory($this->storagePath);
+        if (false === file_put_contents(
+                $this->checkFile($this->storagePath.DIRECTORY_SEPARATOR.$this->storageFileName),
+                $content ?: $this->render(),
+                $this->flags)) {
             throw new \RuntimeException(sprintf(
-                'Failed to write "%s" file',
+                'Failed to write/append content to "%s" file',
                 $this->storagePath
             ));
         }
         return true;
+    }
+
+    protected function checkDirectory(string $storagePath)
+    {
+        if (!file_exists($storagePath)) {
+            mkdir($storagePath, 0755, true);
+        }
+    }
+
+    protected function checkFile(string $filePath)
+    {
+        // Overwrite to decide what do to if file exists
+        if (file_exists($filePath)) {
+            // By default, ignore, overwrite file
+        }
+        return $filePath;
     }
 
     public function process():bool

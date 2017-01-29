@@ -30,9 +30,9 @@ class MigrationTemplate extends TemplateAbstract
         $this->storageFileName = $this->makeFileName($model);
     }
 
-    public function render():string
+    public function render(string $contents = ''):string
     {
-        $contents     = $this->loadTemplate();
+        $contents     = $contents ?: $this->loadTemplate();
         $replacePairs = array(
             '!!className!!'       => $this->getMigrationClassName($this->model),
             '!!tableName!!'       => $this->getTableName($this->model),

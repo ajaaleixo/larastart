@@ -28,9 +28,9 @@ class ModelTemplate extends TemplateAbstract
         $this->storageFileName = $model->getName().".php";
     }
 
-    public function render():string
+    public function render(string $contents = ''):string
     {
-        $contents     = $this->loadTemplate();
+        $contents     = $contents ?: $this->loadTemplate();
         $replacePairs = array(
             '!!traits!!'          => $this->getTraits($this->model),
             '!!className!!'       => $this->model->getName(),
