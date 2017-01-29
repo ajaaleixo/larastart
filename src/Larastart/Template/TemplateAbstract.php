@@ -7,6 +7,8 @@
  
 namespace Larastart\Template;
 
+use Larastart\Utils\FileUtils;
+
 abstract class TemplateAbstract implements TemplateInterface
 {
     protected $templatePath = "";
@@ -41,9 +43,7 @@ abstract class TemplateAbstract implements TemplateInterface
 
     protected function checkDirectory(string $storagePath)
     {
-        if (!file_exists($storagePath)) {
-            mkdir($storagePath, 0755, true);
-        }
+        FileUtils::createDirIfNotExists($storagePath);
     }
 
     protected function checkFile(string $filePath)
