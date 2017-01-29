@@ -1,0 +1,79 @@
+[
+  {
+    "name": "post",
+    "description": "The Blog Posts",
+    "model": {
+      "columns": [
+        {
+          "type": "increments",
+          "name": "id",
+          "_unique": true
+        },
+        {
+          "type": "integer",
+          "name": "author_id",
+          "_index": ["author_id", "post_author"]
+        },
+        {
+          "type": "string",
+          "name": "title",
+          "length": 144
+        },
+        {
+          "type": "text",
+          "name": "article"
+        },
+        {
+          "type": "integer",
+          "name": "views",
+          "_unsigned": true
+        },
+        {
+          "type": "smallInteger",
+          "name": "status",
+          "_unsigned": true,
+          "_index": ["status", "article_status"]
+        }
+      ],
+      "_softDeletes": true,
+      "_timestamps": true,
+      "_table": "post",
+      "_hasOne": "author"
+    }
+  },
+  {
+    "name": "author",
+    "description": "Post article author",
+    "model": {
+      "columns": [
+        {
+          "type": "increments",
+          "name": "id"
+        },
+        {
+          "type": "string",
+          "name": "display_name",
+          "length": 50
+        },
+        {
+          "type": "string",
+          "name": "first_name"
+        },
+        {
+          "type": "string",
+          "name": "last_name"
+        },
+        {
+          "type": "smallInteger",
+          "name": "status",
+          "_unsigned": true,
+          "_index": ["status", "author_status"]
+        }
+      ],
+      "_softDeletes": true,
+      "_timestamps": true,
+      "_table": "author",
+      "_hasMany": "post"
+    }
+  }
+]
