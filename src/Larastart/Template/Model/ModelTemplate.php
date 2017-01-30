@@ -98,7 +98,7 @@ class ModelTemplate extends TemplateAbstract
     {
         return 'public function '.strtolower($name).'()
     {
-        return $this->hasOne(App\\'.ucfirst($name).');
+        return $this->hasOne('.ucfirst($name).'::class);
     }';
     }
 
@@ -106,7 +106,7 @@ class ModelTemplate extends TemplateAbstract
     {
         return 'public function '.strtolower($name).'()
     {
-        return $this->hasMany(App\\'.ucfirst($name).');
+        return $this->hasMany('.ucfirst($name).'::class);
     }';
     }
 
@@ -114,7 +114,7 @@ class ModelTemplate extends TemplateAbstract
     {
         return 'public function '.strtolower($name).'()
     {
-        return $this->belongsTo(App\\'.ucfirst($name).');
+        return $this->belongsTo('.ucfirst($name).'::class);
     }';
     }
 
@@ -125,7 +125,7 @@ class ModelTemplate extends TemplateAbstract
         // guessing the foreign key and so on
         return 'public function '.strtolower($name).'s()
     {
-        return $this->belongsToMany(App\\'.ucfirst($name).');
+        return $this->belongsToMany('.ucfirst($name).'::class);
     }';
     }
 }
