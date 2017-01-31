@@ -7,10 +7,10 @@
 
 namespace App\Http\Controllers;
 
-use App\!!modelName!!;
+use App\Author;
 use Illuminate\Http\Request;
 
-class !!className!! extends Controller {
+class AuthorController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class !!className!! extends Controller {
      */
     public function getAll()
     {
-        return !!modelName!!::paginate();
+        return Author::paginate();
     }
 
     /**
@@ -30,7 +30,7 @@ class !!className!! extends Controller {
     public function create(Request $request)
     {
         $this->validate($request, [
-            !!modelRules!!
+            
         ]);
 
         // TODO
@@ -44,7 +44,7 @@ class !!className!! extends Controller {
      */
     public function getById($id)
     {
-        $resource = !!modelName!!::find($id);
+        $resource = Author::find($id);
         if ($resource === null) {
             abort(404, "Resource not found");
         }
@@ -81,7 +81,7 @@ class !!className!! extends Controller {
      */
     public function destroy($id)
     {
-        $resource = !!modelName!!::find($id);
+        $resource = Author::find($id);
         if ($resource === null) {
             abort(404, "Resource not found");
         }

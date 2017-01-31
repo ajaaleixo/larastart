@@ -18,6 +18,7 @@ class Column
     protected $isNullable;
     protected $isUnsigned;
     protected $index;
+    protected $rules;
 
     public function __construct(array $col)
     {
@@ -29,6 +30,7 @@ class Column
         $this->isNullable = ArrayUtils::getOptionalIndex($col, "_nullable", false);
         $this->isUnsigned = ArrayUtils::getOptionalIndex($col, "_unsigned", false);
         $this->index = ArrayUtils::getOptionalIndex($col, "_index");
+        $this->rules = ArrayUtils::getOptionalIndex($col, "_rules");
     }
 
     /**
@@ -85,5 +87,13 @@ class Column
     public function index()
     {
         return $this->index;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRules()
+    {
+        return $this->rules;
     }
 }

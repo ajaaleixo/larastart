@@ -7,6 +7,7 @@
 
 namespace Larastart\Template\Controller;
 
+use Larastart\Resource\Model\Column;
 use Larastart\Resource\Model\ModelInterface;
 use Larastart\Template\TemplateAbstract;
 
@@ -34,6 +35,7 @@ class ControllerTemplate extends TemplateAbstract
         $replacePairs = array(
             '!!className!!' => $this->getClassName($this->model),
             '!!modelName!!' => $this->model->getName(),
+            '!!modelRules!!' => $this->getRules($this->model),
         );
         return strtr($contents, $replacePairs);
     }
@@ -46,5 +48,18 @@ class ControllerTemplate extends TemplateAbstract
     protected function getClassName(ModelInterface $model)
     {
         return sprintf("%sController", $model->getName());
+    }
+
+    protected function getRules(ModelInterface $model)
+    {
+        $output = [];
+        /* @var $col Column */
+        foreach($model->getColumns() as $col) {
+            $rules = $col->getRules();
+            if (!empty($rules) && is_string($rules)) {
+                $output[] = "'".strtolower($col->getName())."' => '".$col->getRules()."'";
+            }
+        }
+        return implode(",\n\t\t\t", $output);
     }
 }
