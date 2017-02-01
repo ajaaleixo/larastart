@@ -11,11 +11,11 @@ use Larastart\Resource\Model\Column;
 use Larastart\Resource\Model\ModelInterface;
 use Larastart\Template\TemplateAbstract;
 
-class ControllerTemplate extends TemplateAbstract
+class RequestTemplate extends TemplateAbstract
 {
     protected $model = null;
-    protected $defaultTemplatePath = __DIR__.DIRECTORY_SEPARATOR."Controller.php.template";
-    protected $defaultStoragePath  = DIRECTORY_SEPARATOR."App".DIRECTORY_SEPARATOR."Http".DIRECTORY_SEPARATOR."Controllers";
+    protected $defaultTemplatePath = __DIR__.DIRECTORY_SEPARATOR."Request.php.template";
+    protected $defaultStoragePath  = DIRECTORY_SEPARATOR."App".DIRECTORY_SEPARATOR."Http".DIRECTORY_SEPARATOR."Requests";
 
     public function __construct(ModelInterface $model, string $storagePath, string $templatePath = null)
     {
@@ -34,38 +34,31 @@ class ControllerTemplate extends TemplateAbstract
         $contents     = $contents ?: $this->loadTemplate();
         $replacePairs = array(
             '!!className!!' => $this->getClassName($this->model),
-            '!!modelName!!' => $this->model->getName(),
-            '!!storeRequestName!!' => $this->getStoreRequestName($this->model),
-            '!!modelStore!!' => $this->getModelStore($this->model),
+            '!!modelRules!!' => $this->getRules($this->model),
         );
         return strtr($contents, $replacePairs);
     }
 
-    protected function getStoreRequestName(ModelInterface $model)
-    {
-        return sprintf("Store%s", $model->getName());
-    }
-
     protected function makeFileName(ModelInterface $model)
     {
-        return sprintf("%sController.php", $model->getName());
+        return sprintf("Store%s.php", $model->getName());
     }
 
     protected function getClassName(ModelInterface $model)
     {
-        return sprintf("%sController", $model->getName());
+        return sprintf("Store%s", $model->getName());
     }
 
-    protected function getModelStore(ModelInterface $model)
+    protected function getRules(ModelInterface $model)
     {
         $output = [];
-        /* @var $column Column */
-        foreach($model->getColumns() as $column) {
-            // Avoid setting the "id" parameter
-            if ($column->getName() !== 'id') {
-                $output[] = '$model->'.$column->getName().' = $request->'.$column->getName().';';
+        /* @var $col Column */
+        foreach($model->getColumns() as $col) {
+            $rules = $col->getRules();
+            if (!empty($rules) && is_string($rules)) {
+                $output[] = "'".strtolower($col->getName())."' => '".$col->getRules()."'";
             }
         }
-        return implode("\n\t\t", $output);
+        return implode(",\n\t\t\t", $output);
     }
 }

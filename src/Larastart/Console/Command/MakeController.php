@@ -10,6 +10,7 @@ namespace Larastart\Console\Command;
 use Larastart\Resource\Model\ModelInterface;
 use Larastart\Resource\ResourceFactory;
 use Larastart\Template\Controller\ControllerTemplate;
+use Larastart\Template\Controller\RequestTemplate;
 use Larastart\Template\Controller\RouteTemplate;
 use Larastart\Utils\FileUtils;
 use Symfony\Component\Console\Input\InputArgument;
@@ -54,6 +55,7 @@ class MakeController extends AbstractCommand
         foreach ($resourceCollection as $resource) {
             /* @var $resource Resource */
             $this->writeController($resource->getModel(), $outputPathArgument);
+            $this->writeRequest($resource->getModel(), $outputPathArgument);
             $this->appendRoute($resource->getModel(), $outputPathArgument);
             $output->writeln($this->success(sprintf("Generated '%s's controller", $resource->getName())));
         }
@@ -64,6 +66,12 @@ class MakeController extends AbstractCommand
     protected function writeController(ModelInterface $model, $path = "")
     {
         $template = new ControllerTemplate($model, $path);
+        $template->process();
+    }
+
+    protected function writeRequest(ModelInterface $model, $path = "")
+    {
+        $template = new RequestTemplate($model, $path);
         $template->process();
     }
 

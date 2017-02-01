@@ -69,7 +69,7 @@ class Resource implements ResourceInterface
 
     /**
      * Returns a Model.
-     * 
+     *
      * @return ModelInterface
      */
     public function getModel():ModelInterface
