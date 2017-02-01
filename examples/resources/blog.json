@@ -12,7 +12,8 @@
         {
           "type": "integer",
           "name": "author_id",
-          "_index": "post_author_index"
+          "_index": "post_author_index",
+          "_rules": "required"
         },
         {
           "type": "string",

@@ -33,6 +33,8 @@ class Resource implements ResourceInterface
         $this->name = ArrayUtils::getMandatoryIndex($values, self::NAME_PROPERTY,
             "Resource missing property 'name'"
         );
+        // Make name CamelCase
+        $this->name = str_replace(" ", "", ucwords(str_replace(["-", "_"], " ", strtolower($this->name))));
 
         // Check model - Mandatory
         $this->model = new Model($this->name, ArrayUtils::getMandatoryIndex($values, self::MODEL_PROPERTY,
@@ -45,16 +47,31 @@ class Resource implements ResourceInterface
         );
     }
 
+    /**
+     * Returns CamelCased name.
+     *
+     * @return string
+     */
     public function getName():string
     {
         return $this->name;
     }
 
+    /**
+     * Returns description.
+     *
+     * @return string
+     */
     public function getDescription():string
     {
         return $this->description;
     }
 
+    /**
+     * Returns a Model.
+     *
+     * @return ModelInterface
+     */
     public function getModel():ModelInterface
     {
         return $this->model;

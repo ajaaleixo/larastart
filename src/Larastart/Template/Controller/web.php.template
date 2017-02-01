@@ -4,7 +4,6 @@
  */
 Route::get('!!modelName!!/', '!!className!!@getAll');
 Route::get('!!modelName!!/{id}', '!!className!!@getById')->where(':id', '[0-9]+');
-Route::post('!!modelName!!', '!!className!!@create');
+Route::post('!!modelName!!', '!!className!!@store');
 Route::put('!!modelName!!/{id}', '!!className!!@update')->where(':id', '[0-9]+');
-Route::patch('!!modelName!!/{id}', '!!className!!@patch')->where(':id', '[0-9]+');
 Route::delete('!!modelName!!/{id}', '!!className!!@destroy')->where(':id', '[0-9]+');

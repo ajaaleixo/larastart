@@ -17,7 +17,7 @@ interface ModelInterface
     public function __construct(string $name, array $properties);
 
     /**
-     * Retrieves the name.
+     * Retrieves the CamelCased name.
      * @return string
      */
     public function getName():string;
