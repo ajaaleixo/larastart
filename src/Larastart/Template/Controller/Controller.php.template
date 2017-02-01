@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 use App\!!modelName!!;
 use Illuminate\Http\Request;
+use App\Http\Requests\!!storeRequestName!!;
 
 class !!className!! extends Controller {
 
@@ -27,13 +28,12 @@ class !!className!! extends Controller {
      *
      * @return Response
      */
-    public function create(Request $request)
+    public function store(!!storeRequestName!! $request)
     {
-        $this->validate($request, [
-            !!modelRules!!
-        ]);
+        $model = new !!modelName!!;
+        !!modelStore!!
+        $model->save();
 
-        // TODO
     }
 
     /**
@@ -57,20 +57,14 @@ class !!className!! extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, !!storeRequestName!! $request)
     {
-        //
-    }
-
-    /**
-     * Patch the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function patch($id)
-    {
-        //
+        $model = !!modelName!!::find($id);
+        if ($model === null) {
+            abort(404, "Resource not found");
+        }
+        !!modelStore!!
+        $model->save();
     }
 
     /**

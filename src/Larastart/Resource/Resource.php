@@ -55,6 +55,11 @@ class Resource implements ResourceInterface
         return $this->description;
     }
 
+    /**
+     * Returns a Model.
+     *
+     * @return ModelInterface
+     */
     public function getModel():ModelInterface
     {
         return $this->model;
