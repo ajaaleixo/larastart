@@ -70,7 +70,7 @@ class Model implements ModelInterface
 
     public function getName():string
     {
-        return ucfirst(strtolower($this->name));
+        return $this->name;
     }
 
     public function getProperties():array
