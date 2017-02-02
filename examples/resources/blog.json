@@ -54,15 +54,18 @@
         {
           "type": "string",
           "name": "display_name",
-          "length": 50
+          "length": 50,
+          "_rules": "required|string|max:50|min:10"
         },
         {
           "type": "string",
-          "name": "first_name"
+          "name": "first_name",
+          "_rules": "required|string|max:100|min:10"
         },
         {
           "type": "string",
-          "name": "last_name"
+          "name": "last_name",
+          "_rules": "required|string|max:100|min:10"
         },
         {
           "type": "smallInteger",
