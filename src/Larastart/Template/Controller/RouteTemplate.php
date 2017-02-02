@@ -43,7 +43,7 @@ class RouteTemplate extends TemplateAbstract
         {
             $prefix = strtolower($resource->getApi()->getPrefix());
             $resourcesGroupedByPrefix[$prefix][] = $resource;
-            $middlewaresByPrefix[$prefix][] = $resource->getApi()->getMiddleware();
+            $middlewaresByPrefix[$prefix][$resource->getApi()->getMiddleware()]=+1;
         }
 
         $groupTemplate = $this->loadTemplate();
@@ -52,7 +52,7 @@ class RouteTemplate extends TemplateAbstract
             $replacePairs = [
                 // Avoid writing api twice.. since we will write this on api.php route
                 '!!prefix!!'      => $prefix === 'api' ? "" : $prefix,
-                '!!middleware!!'  => implode("', '", $middlewaresByPrefix[$prefix]),
+                '!!middleware!!'  => implode("', '", array_keys($middlewaresByPrefix[$prefix])),
                 '!!namespace!!'   => ucfirst($prefix),
                 '!!routeGroups!!' => $this->getRouteGroups($resources),
             ];

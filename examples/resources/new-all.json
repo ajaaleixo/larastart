@@ -1,0 +1,660 @@
+[
+    {
+        "name": "account",
+        "description": "account",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "string",
+                    "name": "type",
+                    "_index": "type"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "account"
+        }
+    },
+    {
+        "name": "advert",
+        "description": "advert",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "integer",
+                    "name": "category_id",
+                    "_unsigned": true,
+                    "_index": "category_id"
+                },
+                {
+                    "type": "integer",
+                    "name": "user_id",
+                    "_unsigned": true,
+                    "_index": "user_id"
+                },
+                {
+                    "type": "integer",
+                    "name": "price",
+                    "_unsigned": true,
+                    "_index": "price"
+                },
+                {
+                    "type": "integer",
+                    "name": "currency_id",
+                    "_unsigned": true,
+                    "_index": "currency_id"
+                },
+                {
+                    "type": "text",
+                    "name": "description"
+                },
+                {
+                    "type": "string",
+                    "name": "status",
+                    "_index": "status"
+                },
+                {
+                    "type": "integer",
+                    "name": "image_colection_id",
+                    "_unsigned": true,
+                    "_index": "image_colection_id"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "advert"
+        }
+    },
+    {
+        "name": "advert_attribute",
+        "description": "advert_attribute",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "integer",
+                    "name": "attribute_id",
+                    "_unsigned": true,
+                    "_index": "attribute_id"
+                },
+                {
+                    "type": "integer",
+                    "name": "advert_id",
+                    "_unsigned": true,
+                    "_index": "advert_id"
+                },
+                {
+                    "type": "string",
+                    "name": "value",
+                    "_nullable": true
+                },
+                {
+                    "type": "string",
+                    "name": "value_type",
+                    "_index": "value_type"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "advert_attribute"
+        }
+    },
+    {
+        "name": "advert_site",
+        "description": "advert_site",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "integer",
+                    "name": "ad_id",
+                    "_unsigned": true,
+                    "_index": "ad_id"
+                },
+                {
+                    "type": "integer",
+                    "name": "site_id",
+                    "_unsigned": true,
+                    "_index": "site_id"
+                },
+                {
+                    "type": "string",
+                    "name": "status",
+                    "_index": "status"
+                },
+                {
+                    "type": "string",
+                    "name": "last_message"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "advert_site"
+        }
+    },
+    {
+        "name": "attribute",
+        "description": "attribute",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "integer",
+                    "name": "parent_id",
+                    "_unsigned": true,
+                    "_index": "parent_id"
+                },
+                {
+                    "type": "string",
+                    "name": "type",
+                    "_index": "type"
+                },
+                {
+                    "type": "string",
+                    "name": "status",
+                    "_index": "status"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "attribute"
+        }
+    },
+    {
+        "name": "category",
+        "description": "category",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "name",
+                    "length": 100,
+                    "_unique": true
+                },
+                {
+                    "type": "integer",
+                    "name": "parent_id",
+                    "_unsigned": true,
+                    "_index": "parent_id"
+                },
+                {
+                    "type": "smallInteger",
+                    "name": "priority",
+                    "_unsigned": true,
+                    "_index": "priority"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "category"
+        }
+    },
+    {
+        "name": "category_attribute",
+        "description": "category_attribute",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "integer",
+                    "name": "category_id",
+                    "_unsigned": true,
+                    "_index": "category_id"
+                },
+                {
+                    "type": "integer",
+                    "name": "attribute_id",
+                    "_unsigned": true,
+                    "_index": "attribute_id"
+                },
+                {
+                    "type": "smallInteger",
+                    "name": "priotrity"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "category_attribute"
+        }
+    },
+    {
+        "name": "category_attribute_rule",
+        "description": "category_attribute_rule",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "integer",
+                    "name": "category_attribute_id",
+                    "_unsigned": true,
+                    "_index": "language_id"
+                },
+                {
+                    "type": "integer",
+                    "name": "rule_id",
+                    "_unsigned": true,
+                    "_index": "rule_id"
+                },
+                {
+                    "type": "string",
+                    "name": "key",
+                    "_index": "key"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "category_attribute_rule"
+        }
+    },
+    {
+        "name": "currency",
+        "description": "currency",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "code",
+                    "length": 3,
+                    "_unsigned": true,
+                    "_index": "code",
+                    "_rules": "required|max:3|min:3|string"
+                },
+                {
+                    "type": "integer",
+                    "name": "decimal_digits",
+                    "_unsigned": true,
+                    "_rules": "required|integer"
+                },
+                {
+                    "type": "string",
+                    "name": "entity",
+                    "length": 100,
+                    "_unsigned": true,
+                    "_rules": "required|string"
+                },
+                {
+                    "type": "string",
+                    "name": "currency",
+                    "length": 50,
+                    "_unsigned": true,
+                    "_rules": "required|string"
+                },
+                {
+                    "type": "string",
+                    "name": "numeric_code",
+                    "length": 3,
+                    "_rules": "required|max:3|string"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "currency"
+        }
+    },
+    {
+        "name": "image",
+        "description": "image",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "integer",
+                    "name": "file_type",
+                    "_unsigned": true,
+                    "index": "file_type"
+                },
+                {
+                    "type": "integer",
+                    "name": "width",
+                    "_unsigned": true
+                },
+                {
+                    "type": "integer",
+                    "name": "height",
+                    "_unsigned": true
+                },
+                {
+                    "type": "string",
+                    "name": "description"
+                },
+                {
+                    "type": "smallInteger",
+                    "name": "priority"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "image"
+        }
+    },
+    {
+        "name": "image_collection",
+        "description": "image_collection",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "status",
+                    "index": "status"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "image_collection"
+        }
+    },
+    {
+        "name": "integrator",
+        "description": "integrator",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "string",
+                    "name": "status",
+                    "_index": "statis"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "integrator"
+        }
+    },
+    {
+        "name": "journal",
+        "description": "journal",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "action",
+                    "_index": "action"
+                },
+                {
+                    "type": "string",
+                    "name": "title"
+                },
+                {
+                    "type": "text",
+                    "name": "description"
+                },
+                {
+                    "type": "string",
+                    "name": "resource",
+                    "_index": "resource"
+                },
+                {
+                    "type": "string",
+                    "name": "agent",
+                    "_index": "agent"
+                },
+                {
+                    "type": "string",
+                    "name": "client",
+                    "_index": "client"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "journal"
+        }
+    },
+    {
+        "name": "language",
+        "description": "languages",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "name",
+                    "length": 50,
+                    "_unique": true
+                },
+                {
+                    "type": "string",
+                    "name": "code",
+                    "length": 10,
+                    "_unique": true
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "languages"
+        }
+    },
+    {
+        "name": "rule",
+        "description": "rule",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "name",
+                    "_index": "unique"
+                },
+                {
+                    "type": "string",
+                    "name": "message"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "rule"
+        }
+    },
+    {
+        "name": "site",
+        "description": "site",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "string",
+                    "name": "country"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "site"
+        }
+    },
+    {
+        "name": "translation",
+        "description": "translation",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "integer",
+                    "name": "language_id",
+                    "_unsigned": true,
+                    "_index": "language_id"
+                },
+                {
+                    "type": "string",
+                    "name": "key",
+                    "_index": "key"
+                },
+                {
+                    "type": "string",
+                    "name": "key_type",
+                    "_index": "key_type"
+                },
+                {
+                    "type": "string",
+                    "name": "translation"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "translation"
+        }
+    },
+    {
+        "name": "user_site",
+        "description": "user_site",
+        "api": {
+            "prefix": "api",
+            "middleware": "auth:api"
+        },
+        "model": {
+            "columns": [
+                {
+                    "type": "increments",
+                    "name": "id"
+                },
+                {
+                    "type": "string",
+                    "name": "status",
+                    "_index": "status"
+                }
+            ],
+            "_softDeletes": true,
+            "_timestamps": true,
+            "_table": "user_site"
+        }
+    }
+]

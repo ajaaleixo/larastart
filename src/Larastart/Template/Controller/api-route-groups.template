@@ -1,6 +1,4 @@
-/**
- * !!modelName!! Group
- */
+
 Route::group([
     'prefix' => '!!modelName!!'
 ], function() {
