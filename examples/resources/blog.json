@@ -71,7 +71,8 @@
           "type": "smallInteger",
           "name": "status",
           "_unsigned": true,
-          "_index": true
+          "_index": true,
+          "_default": 1
         }
       ],
       "_softDeletes": true,
