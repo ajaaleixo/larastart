@@ -1,0 +1,9 @@
+Route::group([
+        'prefix' => '!!prefix!!',
+        'namespace' => '!!namespace!!',
+        'middleware' => ['!!middleware!!'],
+    ], function () {
+
+        !!routeGroups!!
+    }
+);

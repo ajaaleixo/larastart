@@ -7,6 +7,7 @@
 
 namespace Larastart\Resource;
 
+use Larastart\Resource\Api\ApiInterface;
 use Larastart\Resource\Model\ModelInterface;
 
 interface ResourceInterface
@@ -34,4 +35,10 @@ interface ResourceInterface
      * @return ModelInterface
      */
     public function getModel():ModelInterface;
+
+    /**
+     * Retrieves the API.
+     * @return ApiInterface
+     */
+    public function getApi():ApiInterface;
 }

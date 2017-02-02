@@ -7,7 +7,10 @@
 
 namespace Larastart\Console\Command;
 
+use Larastart\Resource\Api\ApiInterface;
 use Larastart\Resource\Model\ModelInterface;
+use Larastart\Resource\Resource;
+use Larastart\Resource\ResourceCollection;
 use Larastart\Resource\ResourceFactory;
 use Larastart\Template\Controller\ControllerTemplate;
 use Larastart\Template\Controller\RequestTemplate;
@@ -54,18 +57,20 @@ class MakeApi extends AbstractCommand
         // Handle Model Template - write
         foreach ($resourceCollection as $resource) {
             /* @var $resource Resource */
-            $this->writeController($resource->getModel(), $outputPathArgument);
+            $this->writeController($resource->getApi(), $resource->getModel(), $outputPathArgument);
             $this->writeRequest($resource->getModel(), $outputPathArgument);
-            $this->appendRoute($resource->getModel(), $outputPathArgument);
             $output->writeln($this->success(sprintf("Generated '%s's API", $resource->getName())));
         }
+        $this->writeRoute($resourceCollection, $outputPathArgument);
+        $output->writeln($this->success("Generated Routes"));
         $this->copyView("larastart-welcome.blade.php.template", $outputPathArgument);
+
         $output->writeln($this->info('Finished API'));
     }
 
-    protected function writeController(ModelInterface $model, $path = "")
+    protected function writeController(ApiInterface $api, ModelInterface $model, $path = "")
     {
-        $template = new ControllerTemplate($model, $path);
+        $template = new ControllerTemplate($api, $model, $path);
         $template->process();
     }
 
@@ -75,9 +80,9 @@ class MakeApi extends AbstractCommand
         $template->process();
     }
 
-    protected function appendRoute(ModelInterface $model, $path = "")
+    protected function writeRoute(ResourceCollection $resourceCollection, $path = "")
     {
-        $template = new RouteTemplate($model, $path);
+        $template = new RouteTemplate($resourceCollection, $path);
         $template->process();
     }
 
@@ -91,7 +96,7 @@ class MakeApi extends AbstractCommand
             $storagePath = realpath($path).$storageDir;
         }
         FileUtils::createDirIfNotExists($storagePath);
-        copy(__DIR__."/../../Template/View/".$viewName, $storagePath.DIRECTORY_SEPARATOR.str_replace(".template", "", $viewName));
+        copy(__DIR__."/../../Template/View/".$viewName, $storagePath.DIRECTORY_SEPARATOR."welcome.blade.php");
         $this->success('Copied view ' . $viewName);
     }
 }
