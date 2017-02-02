@@ -11,6 +11,7 @@ use Larastart\Console\Command\MakeAll;
 use Larastart\Console\Command\MakeApi;
 use Larastart\Console\Command\MakeModel;
 use Larastart\Console\Command\MakeMigration;
+use Larastart\Console\Command\MakeTransformer;
 use Symfony\Component\Console\Application;
 
 class LarastartApplication extends Application
@@ -28,6 +29,7 @@ class LarastartApplication extends Application
             new MakeModel(),
             new MakeMigration(),
             new MakeApi(),
+            new MakeTransformer(),
             new MakeAll(),
         ]);
     }
