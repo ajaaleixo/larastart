@@ -125,18 +125,31 @@ class MigrationTemplate extends TemplateAbstract
 
     protected function getInteger(Column $col)
     {
-        return '$table->integer("'.$col->getName().'")'.$this->getUnique($col).$this->getNullable($col).$this->getUnsigned($col).';';
+        return '$table->integer("'.$col->getName().'")'.
+            $this->getUnique($col).
+            $this->getNullable($col).
+            $this->getUnsigned($col).
+            $this->getDefault($col).
+            ';';
     }
 
     protected function getIpAddress(Column $col)
     {
-        return '$table->ipAddress("'.$col->getName().'")'.$this->getUnique($col).$this->getNullable($col).';';
+        return '$table->ipAddress("'.$col->getName().'")'.
+            $this->getUnique($col).
+            $this->getNullable($col).
+            $this->getDefault($col).
+            ';';
     }
 
     protected function getString(Column $col)
     {
         $length = $col->getLength() ? ", ".$col->getLength() : "";
-        return '$table->string("'.$col->getName().'"'.$length.')'.$this->getUnique($col).$this->getNullable($col).';';
+        return '$table->string("'.$col->getName().'"'.$length.')'.
+            $this->getUnique($col).
+            $this->getNullable($col).
+            $this->getDefault($col).
+            ';';
     }
 
     protected function getRememberToken()
@@ -156,17 +169,38 @@ class MigrationTemplate extends TemplateAbstract
 
     protected function getText(Column $col)
     {
-        return '$table->text("'.$col->getName().'")'.$this->getUnique($col).$this->getNullable($col).';';
+        return '$table->text("'.$col->getName().'")'.
+            $this->getUnique($col).
+            $this->getNullable($col).
+            $this->getDefault($col).
+            ';';
     }
 
     protected function getLongText(Column $col)
     {
-        return '$table->longText("'.$col->getName().'")'.$this->getUnique($col).$this->getNullable($col).';';
+        return '$table->longText("'.$col->getName().'")'.
+            $this->getUnique($col).
+            $this->getNullable($col).
+            $this->getDefault($col).
+            ';';
     }
 
     protected function getSmallInteger(Column $col)
     {
-        return '$table->smallInteger("'.$col->getName().'")'.$this->getUnique($col).$this->getNullable($col).$this->getUnsigned($col).';';
+        return '$table->smallInteger("'.$col->getName().'")'.
+            $this->getUnique($col).
+            $this->getNullable($col).
+            $this->getUnsigned($col).
+            $this->getDefault($col).
+            ';';
+    }
+
+    protected function getDefault(Column $col)
+    {
+        $defaultValue = $col->getDefault();
+        if ($defaultValue) {
+            return "->default(".(is_string($defaultValue) ? "'".$defaultValue."'" : $defaultValue).")";
+        }
     }
 
     protected function getUnique(Column $col)
