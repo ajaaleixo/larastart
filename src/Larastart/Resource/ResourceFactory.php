@@ -7,6 +7,8 @@
  
 namespace Larastart\Resource;
 
+use Symfony\Component\Finder\Finder;
+
 class ResourceFactory
 {
     /**
@@ -19,26 +21,37 @@ class ResourceFactory
     public static function make($filePath):ResourceCollectionInterface
     {
         // Check file and dir
-        // TODO Add option to load all resource files from a folder if resourceFile is a dir
-        if (!file_exists($filePath) || is_dir($filePath)) {
-            throw new \InvalidArgumentException(sprintf(
-                "The resource file '%s' does not exists",
-                $filePath
-            ));
-        }
+        if (!is_dir($filePath)) {
 
-        // TODO Add support to php and yml format
-        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-        switch (strtolower($extension)) {
-            case 'json':
-                return self::makeFromJson($filePath);
-            case 'php':
-            case 'yml':
-            default:
+            if(!file_exists($filePath)) {
                 throw new \InvalidArgumentException(sprintf(
-                    "The resource file '%s' is not parseable. Please use json format.",
+                    "The resource file '%s' does not exists",
                     $filePath
                 ));
+            } else {
+                $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+                switch (strtolower($extension)) {
+                    case 'json':
+                        return self::makeFromJson($filePath);
+                    case 'php':
+                    case 'yml':
+                    default:
+                        throw new \InvalidArgumentException(sprintf(
+                            "The resource file '%s' is not parseable. Please use json format.",
+                            $filePath
+                        ));
+                }
+            }
+        }
+
+        if (is_dir($filePath)) {
+            $finder = new Finder();
+            $resourceCollection = new ResourceCollection();
+            $files = $finder->files()->in($filePath)->path("/\\.json$/");
+            foreach ($files as $file) {
+                $resourceCollection->combine(self::makeFromJson($file->getRealPath()));
+            }
+            return $resourceCollection;
         }
     }
 
@@ -55,6 +68,6 @@ class ResourceFactory
         if (!is_array($content)) {
             throw new \RuntimeException(sprintf("File '%s' must be in json format", $file));
         }
-        return new ResourceCollection($file, $content);
+        return new ResourceCollection($content);
     }
 }

@@ -13,23 +13,36 @@ class ResourceCollection implements ResourceCollectionInterface
     protected $originalFile;
     protected $index;
 
-    public function __construct(string $originalFile, array $values)
+    public function __construct(array $values = [])
     {
-        $this->originalFile = $originalFile;
         $this->rewind();
-        $this->parseValues($values);
+        if (!empty($values)) {
+            $this->parseValues($values);
+        }
+    }
+
+    public function combine(ResourceCollection $collection)
+    {
+        foreach($collection as $resource) {
+            $this->addResource($resource);
+        }
     }
 
     protected function parseValues(array $values)
     {
-        foreach ($values as $i => $resource) {
-            $this->resources[$i] = new Resource($resource);
+        foreach ($values as $resource) {
+            $this->resources[] = new Resource($resource);
         }
     }
 
-    public function getOriginalFile():string
+    public function addResourcesFromArray(array $values)
     {
-        return $this->originalFile;
+        $this->parseValues($values);
+    }
+
+    public function addResource(ResourceInterface $resource)
+    {
+        $this->resources[] = $resource;
     }
 
     public function current()

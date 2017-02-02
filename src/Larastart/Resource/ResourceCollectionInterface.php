@@ -11,14 +11,31 @@ interface ResourceCollectionInterface extends \Iterator
 {
     /**
      * ResourceInterface constructor.
-     * @param string $originalFile The original file.
-     * @param array  $values       The resource array.
+     * @param array $values Optional The resource array.
      */
-    public function __construct(string $originalFile, array $values);
+    public function __construct(array $values);
 
     /**
-     * Retrieves the original file from where the resource was mount.
-     * @return string
+     * Add Resource from array
+     *
+     * @param array $values
+     * @return mixed
      */
-    public function getOriginalFile():string;
+    public function addResourcesFromArray(array $values);
+
+    /**
+     * Combines another collection
+     *
+     * @param ResourceCollection $collection
+     * @return void
+     */
+    public function combine(ResourceCollection $collection);
+
+    /**
+     * Add parsed Resource
+     *
+     * @param ResourceInterface $resource
+     * @return mixed
+     */
+    public function addResource(ResourceInterface $resource);
 }
