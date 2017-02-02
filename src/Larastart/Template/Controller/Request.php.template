@@ -13,7 +13,9 @@ class !!className!! extends FormRequest
      */
     public function authorize()
     {
-        return false;
+
+        // TODO Change this later
+        return true;
     }
 
     /**
