@@ -24,19 +24,6 @@ class !!className!! extends Controller {
     }
 
     /**
-     * Process post to create.
-     *
-     * @return Response
-     */
-    public function store(!!storeRequestName!! $request)
-    {
-        $model = new !!modelName!!;
-        !!modelStore!!
-        $model->save();
-
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -52,6 +39,18 @@ class !!className!! extends Controller {
     }
 
     /**
+     * Process post to store.
+     *
+     * @return Response
+     */
+    public function store(!!storeRequestName!! $request)
+    {
+        $model = new !!modelName!!;
+        return $this->handleSave($request, $model);
+
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  int  $id
@@ -63,8 +62,7 @@ class !!className!! extends Controller {
         if ($model === null) {
             abort(404, "Resource not found");
         }
-        !!modelStore!!
-        $model->save();
+        return $this->handleSave($request, $model);
     }
 
     /**
@@ -80,5 +78,23 @@ class !!className!! extends Controller {
             abort(404, "Resource not found");
         }
         return $resource->delete();
+    }
+
+    protected function handleSave(!!storeRequestName!! $request, $model)
+    {
+        try {
+            $intention = $model->id ? 'updated' : 'created';
+            !!modelStore!!
+            $model->save();
+            if ($model->save()) {
+                return response([
+                    'url' => '/author/'.$model->id,
+                    'message' => 'Resource ' . $intention,
+                ], $model->id ? 200 : 201);
+            }
+            throw new \Exception("Resource not " . $intention);
+        } catch (\Exception $ex) {
+            abort(500, $ex->getMessage());
+        }
     }
 }
