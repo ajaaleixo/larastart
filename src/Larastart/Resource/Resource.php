@@ -8,7 +8,9 @@
 namespace Larastart\Resource;
 
 use Larastart\Resource\Model\Model;
+use Larastart\Resource\Api\Api;
 use Larastart\Resource\Model\ModelInterface;
+use Larastart\Resource\Api\ApiInterface;
 use Larastart\Utils\ArrayUtils;
 
 class Resource implements ResourceInterface
@@ -16,10 +18,7 @@ class Resource implements ResourceInterface
     protected $name;
     protected $description;
     protected $model;
-
-    const NAME_PROPERTY        = "name";
-    const DESCRIPTION_PROPERTY = "description";
-    const MODEL_PROPERTY       = "model";
+    protected $api;
 
     public function __construct(array $values)
     {
@@ -29,28 +28,31 @@ class Resource implements ResourceInterface
             );
         }
 
+        // Check URI prefix - Mandatory
+        $this->api = new Api(ArrayUtils::getMandatoryIndex($values, "api",
+            sprintf("The %s resource", $this->name)
+        ));
+
         // Check name - Mandatory
-        $this->name = ArrayUtils::getMandatoryIndex($values, self::NAME_PROPERTY,
+        $this->name = ArrayUtils::getMandatoryIndex($values, "name",
             "Resource missing property 'name'"
         );
         // Make name CamelCase
         $this->name = str_replace(" ", "", ucwords(str_replace(["-", "_"], " ", strtolower($this->name))));
 
         // Check model - Mandatory
-        $this->model = new Model($this->name, ArrayUtils::getMandatoryIndex($values, self::MODEL_PROPERTY,
+        $this->model = new Model($this->name, ArrayUtils::getMandatoryIndex($values, "model",
             "Resource missing property 'name'"
         ));
 
         // Check description - Optional
-        $this->description = ArrayUtils::getOptionalIndex($values, self::DESCRIPTION_PROPERTY,
+        $this->description = ArrayUtils::getOptionalIndex($values, "description",
             sprintf("The %s resource", $this->name)
         );
     }
 
     /**
-     * Returns CamelCased name.
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getName():string
     {
@@ -58,9 +60,7 @@ class Resource implements ResourceInterface
     }
 
     /**
-     * Returns description.
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getDescription():string
     {
@@ -68,13 +68,19 @@ class Resource implements ResourceInterface
     }
 
     /**
-     * Returns a Model.
-     *
-     * @return ModelInterface
+     * @inheritdoc
      */
     public function getModel():ModelInterface
     {
         return $this->model;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getApi():ApiInterface
+    {
+        return $this->api;
     }
 }
  

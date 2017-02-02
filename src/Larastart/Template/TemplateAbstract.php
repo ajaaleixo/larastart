@@ -19,11 +19,12 @@ abstract class TemplateAbstract implements TemplateInterface
     /**
      * Loads the template content.
      *
+     * @param string $template Optional
      * @return string
      */
-    protected function loadTemplate()
+    protected function loadTemplate($template = "")
     {
-        return file_get_contents($this->templatePath);
+        return file_get_contents($template ? $template : $this->templatePath);
     }
 
     protected function save(string $content = ''):bool

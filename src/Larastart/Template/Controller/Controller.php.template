@@ -5,11 +5,11 @@
  * Copyright (c) 2017 andrealeixo.com
  */
 
-namespace App\Http\Controllers;
+!!namespace!!
 
 use App\!!modelName!!;
-use Illuminate\Http\Request;
 use App\Http\Requests\!!storeRequestName!!;
+use App\Http\Controllers\Controller;
 
 class !!className!! extends Controller {
 
@@ -85,7 +85,6 @@ class !!className!! extends Controller {
         try {
             $intention = $model->id ? 'updated' : 'created';
             !!modelStore!!
-            $model->save();
             if ($model->save()) {
                 return response([
                     'url' => '/author/'.$model->id,

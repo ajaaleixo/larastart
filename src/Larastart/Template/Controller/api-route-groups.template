@@ -1,0 +1,11 @@
+/**
+ * !!modelName!! Group
+ */
+Route::group([
+    'prefix' => '!!modelName!!'
+], function() {
+    Route::get( '/',     '!!className!!@getAll');
+    Route::post('/',     '!!className!!@store');
+    Route::get( '/{id}', '!!className!!@getById')->where(':id', '[0-9]+');
+    Route::put( '/{id}', '!!className!!@update')->where(':id', '[0-9]+');
+});

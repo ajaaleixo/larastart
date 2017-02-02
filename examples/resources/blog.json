@@ -2,6 +2,10 @@
   {
     "name": "post",
     "description": "The Blog Posts",
+    "api": {
+      "prefix": "api",
+      "middleware": "auth:api"
+    },
     "model": {
       "columns": [
         {
@@ -45,6 +49,10 @@
   {
     "name": "author",
     "description": "Post article author",
+    "api": {
+      "prefix": "secondApi",
+      "middleware": "auth:api"
+    },
     "model": {
       "columns": [
         {
