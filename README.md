@@ -19,7 +19,8 @@ Available commands:
   help             Displays help for a command
   list             Lists commands
  make
-  make:controller  Generates Controllers from a resource file
+  make:all         Wrapper to run all the other commands at once
+  make:api         Generates API from a resource file
   make:migration   Generates Migrations from a resource file
   make:model       Generates Models from a resource file
 ```
@@ -35,8 +36,11 @@ php bin/larastart make:model examples/resources/blog.json ../output_dir
 
 # Resources File Format
 
+A Resource is a standard file to describe your Data Model Structure, with validation rules. Those files **should** have an array of Resource Items.
+You may pass as a resource argument a file or a directory with resource files.
+
 ## JSON
-Each resource is composed by:
+Each Resource file, is composed by Resource Items, that are described by:
 - name
 - description
 - model
