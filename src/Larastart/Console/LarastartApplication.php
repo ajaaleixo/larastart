@@ -7,7 +7,8 @@
 
 namespace Larastart\Console;
 
-use Larastart\Console\Command\MakeController;
+use Larastart\Console\Command\MakeAll;
+use Larastart\Console\Command\MakeApi;
 use Larastart\Console\Command\MakeModel;
 use Larastart\Console\Command\MakeMigration;
 use Symfony\Component\Console\Application;
@@ -26,7 +27,8 @@ class LarastartApplication extends Application
         $this->addCommands([
             new MakeModel(),
             new MakeMigration(),
-            new MakeController(),
+            new MakeApi(),
+            new MakeAll(),
         ]);
     }
 }
