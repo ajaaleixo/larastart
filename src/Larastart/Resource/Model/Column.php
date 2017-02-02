@@ -17,6 +17,7 @@ class Column
     protected $isUnique;
     protected $isNullable;
     protected $isUnsigned;
+    protected $hasDefault;
     protected $index;
     protected $rules;
 
@@ -29,8 +30,17 @@ class Column
         $this->isUnique = ArrayUtils::getOptionalIndex($col, "_unique", false);
         $this->isNullable = ArrayUtils::getOptionalIndex($col, "_nullable", false);
         $this->isUnsigned = ArrayUtils::getOptionalIndex($col, "_unsigned", false);
+        $this->hasDefault = ArrayUtils::getOptionalIndex($col, "_default", false);
         $this->index = ArrayUtils::getOptionalIndex($col, "_index");
         $this->rules = ArrayUtils::getOptionalIndex($col, "_rules");
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDefault()
+    {
+        return $this->hasDefault;
     }
 
     /**

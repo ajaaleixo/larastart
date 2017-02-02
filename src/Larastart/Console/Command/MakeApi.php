@@ -17,19 +17,19 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeController extends AbstractCommand
+class MakeApi extends AbstractCommand
 {
     protected $resourceArgument = "resource";
     protected $outputPathArgument = "output";
 
     protected function configure()
     {
-        $this->setName('make:controller')
-            ->setDescription('Generates Controllers from a resource file')
+        $this->setName('make:api')
+            ->setDescription('Generates API from a resource file')
             ->addArgument($this->resourceArgument, InputArgument::REQUIRED, 'Path to the resource file')
             ->addArgument($this->outputPathArgument, InputArgument::OPTIONAL, "Output path/directory")
             ->setHelp(sprintf(
-                '%sLarastart Generate Controllers for a given resource%s',
+                '%sLarastart Generate API for a given resource%s',
                 PHP_EOL,
                 PHP_EOL
             ));
@@ -38,7 +38,7 @@ class MakeController extends AbstractCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln($this->info('Processing Controllers'));
+        $output->writeln($this->info('Processing API'));
 
         // Fetch argument and options
         $resourceArgument   = $input->getArgument($this->resourceArgument);
@@ -47,7 +47,7 @@ class MakeController extends AbstractCommand
         // Prepare Resource
         $resourceCollection = ResourceFactory::make($resourceArgument);
         $output->writeln(
-            $this->info(sprintf("[INFO] Using resource(s) from: %s", $resourceCollection->getOriginalFile())),
+            $this->info(sprintf("[INFO] Using resource(s) from: %s", $resourceArgument)),
             OutputInterface::VERBOSITY_VERBOSE
         );
 
@@ -57,10 +57,10 @@ class MakeController extends AbstractCommand
             $this->writeController($resource->getModel(), $outputPathArgument);
             $this->writeRequest($resource->getModel(), $outputPathArgument);
             $this->appendRoute($resource->getModel(), $outputPathArgument);
-            $output->writeln($this->success(sprintf("Generated '%s's controller", $resource->getName())));
+            $output->writeln($this->success(sprintf("Generated '%s's API", $resource->getName())));
         }
         $this->copyView("larastart-welcome.blade.php.template", $outputPathArgument);
-        $output->writeln($this->info('Finished'));
+        $output->writeln($this->info('Finished API'));
     }
 
     protected function writeController(ModelInterface $model, $path = "")

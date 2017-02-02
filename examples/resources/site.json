@@ -1,0 +1,37 @@
+[
+  {
+    "name": "page",
+    "description": "The site page",
+    "model": {
+      "columns": [
+        {
+          "type": "increments",
+          "name": "id",
+          "_unique": true
+        },
+        {
+          "type": "string",
+          "name": "title",
+          "length": 70,
+          "_index": "page_title_index",
+          "_rules": "required|string|max:70|min:10"
+        },
+        {
+          "type": "string",
+          "name": "slug",
+          "length": 20,
+          "_index": "page_slug_index",
+          "_rules": "required|string|max:20|min:10"
+        },
+        {
+          "type": "integer",
+          "name": "views",
+          "_unsigned": true,
+          "_nullable": true
+        }
+      ],
+      "_softDeletes": true,
+      "_timestamps": true
+    }
+  }
+]
