@@ -46,7 +46,7 @@ class MakeMigration extends AbstractCommand
 
 
         $output->writeln(
-            $this->info(sprintf("[INFO] Using resource(s) from: %s", $resourceCollection->getOriginalFile())),
+            $this->info(sprintf("[INFO] Using resource(s) from: %s", $resourceArgument)),
             OutputInterface::VERBOSITY_VERBOSE
         );
         // Handle Model Template - write
@@ -55,7 +55,7 @@ class MakeMigration extends AbstractCommand
             $this->writeMigration($resource->getModel(), $outputPathArgument);
             $output->writeln($this->success(sprintf("Generated '%s's migration", $resource->getName())));
         }
-        $output->writeln($this->info('Finished'));
+        $output->writeln($this->info('Finished Migrations'));
     }
 
     protected function writeMigration(ModelInterface $model, $path = "")

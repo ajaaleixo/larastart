@@ -44,7 +44,7 @@ class MakeModel extends AbstractCommand
         // Prepare Resource
         $resourceCollection = ResourceFactory::make($resourceArgument);
         $output->writeln(
-            $this->info(sprintf("[INFO] Using resource(s) from: %s", $resourceCollection->getOriginalFile())),
+            $this->info(sprintf("[INFO] Using resource(s) from: %s", $resourceArgument)),
             OutputInterface::VERBOSITY_VERBOSE
         );
 
@@ -54,7 +54,7 @@ class MakeModel extends AbstractCommand
             $this->writeModel($resource->getModel(), $outputPathArgument);
             $output->writeln($this->success(sprintf("Generated '%s's model", $resource->getName())));
         }
-        $output->writeln($this->info('Finished'));
+        $output->writeln($this->info('Finished Models'));
     }
 
     protected function writeModel(ModelInterface $model, $path = "")
