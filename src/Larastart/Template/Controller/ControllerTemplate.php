@@ -66,6 +66,6 @@ class ControllerTemplate extends TemplateAbstract
                 $output[] = '$model->'.$column->getName().' = $request->'.$column->getName().';';
             }
         }
-        return implode("\n\t\t", $output);
+        return implode("\n\t\t\t", $output);
     }
 }
