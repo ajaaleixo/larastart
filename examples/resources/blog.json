@@ -43,7 +43,8 @@
       "_softDeletes": true,
       "_timestamps": true,
       "_table": "post",
-      "_belongsTo": "author"
+      "_belongsTo": ["author", "category"],
+      "_hasMany": "comment"
     }
   },
   {

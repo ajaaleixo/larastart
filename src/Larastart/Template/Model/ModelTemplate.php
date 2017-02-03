@@ -49,11 +49,12 @@ class ModelTemplate extends TemplateAbstract
         // string: the name of the only resource
 
         $output = [];
-        $output = $output + $this->handleRelationship($model->getHasOne(), "hasOne");
-        $output = $output + $this->handleRelationship($model->getHasMany(), "hasMany");
-        $output = $output + $this->handleRelationship($model->getBelongsTo(), "belongsTo");
-        $output = $output + $this->handleRelationship($model->getBelongsToMany(), "belongsToMany");
-        return implode("\n", $output);
+        $output[] = $this->handleRelationship($model->getHasOne(), "hasOne");
+        $output[] = $this->handleRelationship($model->getHasMany(), "hasMany");
+        $output[] = $this->handleRelationship($model->getBelongsTo(), "belongsTo");
+        $output[] = $this->handleRelationship($model->getBelongsToMany(), "belongsToMany");
+
+        return implode("\n\n\t", array_filter($output));
     }
 
     protected function handleRelationship($relationship, $type)
@@ -68,7 +69,7 @@ class ModelTemplate extends TemplateAbstract
         } elseif(is_string($relationship)) {
             $output[]= $this->$type($relationship);
         }
-        return $output;
+        return implode("\n\n\t", $output);
     }
 
 
