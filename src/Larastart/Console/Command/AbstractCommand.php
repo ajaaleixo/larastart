@@ -21,4 +21,3 @@ class AbstractCommand extends Command
         return "<info>".$text."</info>";
     }
 }
- 

@@ -43,7 +43,7 @@ class Model implements ModelInterface
     public function __construct(string $name, array $properties)
     {
         $this->name = $name;
-        if(empty($properties)) {
+        if (empty($properties)) {
             throw new \InvalidArgumentException(sprintf(
                 "Properties from Model '%s' are empty, please provide at least one", $name
             ));

@@ -59,9 +59,9 @@ class MigrationTemplate extends TemplateAbstract
     protected function getColumns(ModelInterface $model)
     {
         $output = [];
-        foreach($model->getColumns() as $column) {
+        foreach ($model->getColumns() as $column) {
             /* @var Column $column */
-            switch($column->getType()) {
+            switch ($column->getType()) {
                 case "increments":
                     $output[]= $this->getIncrements($column);
                     break;
@@ -97,9 +97,9 @@ class MigrationTemplate extends TemplateAbstract
         }
 
         // Indexes
-        foreach($model->getColumns() as $column) {
+        foreach ($model->getColumns() as $column) {
             /* @var Column $column */
-            if($column->index()) {
+            if ($column->index()) {
                 $output[]= $this->getIndex($column);
             }
         }

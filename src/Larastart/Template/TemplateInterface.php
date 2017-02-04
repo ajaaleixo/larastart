@@ -12,4 +12,3 @@ interface TemplateInterface
     public function process():bool;
     public function render(string $contents = ''):string;
 }
- 

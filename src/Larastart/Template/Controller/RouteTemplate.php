@@ -39,8 +39,7 @@ class RouteTemplate extends TemplateAbstract
         // Group Resources by prefix
         $resourcesGroupedByPrefix = [];
         $middlewaresByPrefix = [];
-        foreach($this->resourceCollection as $resource)
-        {
+        foreach ($this->resourceCollection as $resource) {
             $prefix = strtolower($resource->getApi()->getPrefix());
             $resourcesGroupedByPrefix[$prefix][] = $resource;
             $middlewaresByPrefix[$prefix][$resource->getApi()->getMiddleware()]=+1;
@@ -48,7 +47,7 @@ class RouteTemplate extends TemplateAbstract
 
         $groupTemplate = $this->loadTemplate();
         $groupContents = [];
-        foreach($resourcesGroupedByPrefix as $prefix => $resources) {
+        foreach ($resourcesGroupedByPrefix as $prefix => $resources) {
             $replacePairs = [
                 // Avoid writing api twice.. since we will write this on api.php route
                 '!!prefix!!'      => $prefix === 'api' ? "" : $prefix,

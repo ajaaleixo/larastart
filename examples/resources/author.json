@@ -1,0 +1,45 @@
+[
+    {
+      "name": "author",
+      "description": "Post article author",
+      "api": {
+        "prefix": "secondApi",
+        "middleware": "auth:api"
+      },
+      "model": {
+        "columns": [
+          {
+            "type": "increments",
+            "name": "id"
+          },
+          {
+            "type": "string",
+            "name": "display_name",
+            "length": 50,
+            "_rules": "required|string|max:50|min:10"
+          },
+          {
+            "type": "string",
+            "name": "first_name",
+            "_rules": "required|string|max:100|min:10"
+          },
+          {
+            "type": "string",
+            "name": "last_name",
+            "_rules": "required|string|max:100|min:10"
+          },
+          {
+            "type": "smallInteger",
+            "name": "status",
+            "_unsigned": true,
+            "_index": true,
+            "_default": 1
+          }
+        ],
+        "_softDeletes": true,
+        "_timestamps": true,
+        "_table": "author",
+        "_hasMany": "post"
+      }
+    }
+]

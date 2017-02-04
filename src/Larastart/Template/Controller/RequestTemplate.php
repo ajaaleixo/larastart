@@ -53,7 +53,7 @@ class RequestTemplate extends TemplateAbstract
     {
         $output = [];
         /* @var $col Column */
-        foreach($model->getColumns() as $col) {
+        foreach ($model->getColumns() as $col) {
             $rules = $col->getRules();
             if (!empty($rules) && is_string($rules)) {
                 $output[] = "'".strtolower($col->getName())."' => '".$col->getRules()."'";

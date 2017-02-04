@@ -63,10 +63,10 @@ class ModelTemplate extends TemplateAbstract
         $output = [];
         $type = "get".strtoupper($type);
         if (is_array($relationship)) {
-            foreach($relationship as $resourceName) {
+            foreach ($relationship as $resourceName) {
                 $output[]= $this->$type($resourceName);
             }
-        } elseif(is_string($relationship)) {
+        } elseif (is_string($relationship)) {
             $output[]= $this->$type($relationship);
         }
         return implode("\n\n\t", $output);
