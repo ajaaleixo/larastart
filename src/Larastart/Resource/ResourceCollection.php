@@ -23,7 +23,7 @@ class ResourceCollection implements ResourceCollectionInterface
 
     public function combine(ResourceCollection $collection)
     {
-        foreach($collection as $resource) {
+        foreach ($collection as $resource) {
             $this->addResource($resource);
         }
     }

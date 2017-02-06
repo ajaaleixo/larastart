@@ -12,7 +12,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 
-
 class MakeAll extends AbstractCommand
 {
     protected $resourceArgument = "resource";
@@ -44,7 +43,7 @@ class MakeAll extends AbstractCommand
             'make:migration',
         ];
 
-        foreach($commandsToRun as $cmd) {
+        foreach ($commandsToRun as $cmd) {
             $output->writeln($this->info('Running "'.$cmd.'"'));
             sleep(1);
             $this->runCommand($cmd, $output, $resourceArgument, $outputPathArgument);

@@ -22,8 +22,7 @@ class ResourceFactory
     {
         // Check file and dir
         if (!is_dir($filePath)) {
-
-            if(!file_exists($filePath)) {
+            if (!file_exists($filePath)) {
                 throw new \InvalidArgumentException(sprintf(
                     "The resource file '%s' does not exists",
                     $filePath
