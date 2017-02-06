@@ -97,25 +97,25 @@ class ModelTemplate extends TemplateAbstract
 
     protected function getHasOne(string $name)
     {
-        return 'public function '.strtolower($name).'()
+        return 'public function '.$this->makeFunctionCase($name).'()
     {
-        return $this->hasOne('.ucfirst($name).'::class);
+        return $this->hasOne('.$this->makeCamelCase($name).'::class);
     }';
     }
 
     protected function getHasMany(string $name)
     {
-        return 'public function '.strtolower($name).'()
+        return 'public function '.$this->makeFunctionCase($name).'s()
     {
-        return $this->hasMany('.ucfirst($name).'::class);
+        return $this->hasMany('.$this->makeCamelCase($name).'::class);
     }';
     }
 
     protected function getBelongsTo(string $name)
     {
-        return 'public function '.strtolower($name).'()
+        return 'public function '.$this->makeFunctionCase($name).'()
     {
-        return $this->belongsTo('.ucfirst($name).'::class);
+        return $this->belongsTo('.$this->makeCamelCase($name).'::class);
     }';
     }
 
@@ -124,9 +124,20 @@ class ModelTemplate extends TemplateAbstract
 
         // Plural is added using "s". Assuming what Laravel assumes in
         // guessing the foreign key and so on
-        return 'public function '.strtolower($name).'s()
+        return 'public function '.$this->makeFunctionCase($name).'s()
     {
-        return $this->belongsToMany('.ucfirst($name).'::class);
+        return $this->belongsToMany('.$this->makeCamelCase($name).'::class);
     }';
+    }
+
+    protected function makeCamelCase($name)
+    {
+        return str_replace(" ", "", ucwords(str_replace(["-", "_"], " ", strtolower($name))));
+    }
+
+    protected function makeFunctionCase($name)
+    {
+        return lcfirst($this->makeCamelCase($name));
+
     }
 }
