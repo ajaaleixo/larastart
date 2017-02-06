@@ -30,7 +30,6 @@ class MakeModel extends AbstractCommand
                 PHP_EOL,
                 PHP_EOL
             ));
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

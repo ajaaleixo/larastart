@@ -22,7 +22,7 @@ class Resource implements ResourceInterface
 
     public function __construct(array $values)
     {
-        if(empty($values)) {
+        if (empty($values)) {
             throw new \InvalidArgumentException(
                 "Resource from file seems to be empty, please check or run 'make:resource' "
             );
@@ -83,4 +83,3 @@ class Resource implements ResourceInterface
         return $this->api;
     }
 }
- 

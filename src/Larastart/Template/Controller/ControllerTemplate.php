@@ -79,7 +79,7 @@ class ControllerTemplate extends TemplateAbstract
     {
         $output = [];
         /* @var $column Column */
-        foreach($model->getColumns() as $column) {
+        foreach ($model->getColumns() as $column) {
             // Avoid setting the "id" parameter
             if ($column->getName() !== 'id') {
                 $output[] = '$model->'.$column->getName().' = $request->'.$column->getName().';';

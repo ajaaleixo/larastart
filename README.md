@@ -23,6 +23,7 @@ Available commands:
   make:api         Generates API from a resource file
   make:migration   Generates Migrations from a resource file
   make:model       Generates Models from a resource file
+  make:seed        Generates Seeds from the spreadsheet file
 ```
 
 You may use ```make:model``` , or any other command in separate, to generate your intended files:
@@ -33,6 +34,18 @@ php bin/larastart make:model examples/resources/blog.json ../output_dir
 > Generated 'author's model
 > Finished
 ```
+
+You can create seeds for you application.
+
+**Important:** The standard is csv file with comma as a separator.
+
+```
+php bin/larastart make:seed author examples/resources/author.csv ../output_dir
+> Processing Seeds
+> Generated 'author's seed
+> Finished
+```
+
 
 # Resources File Format
 

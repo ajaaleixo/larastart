@@ -36,7 +36,6 @@ class MakeApi extends AbstractCommand
                 PHP_EOL,
                 PHP_EOL
             ));
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -86,7 +85,7 @@ class MakeApi extends AbstractCommand
         $template->process();
     }
 
-    protected function copyView($viewName , $path = "")
+    protected function copyView($viewName, $path = "")
     {
         $storagePath = "";
         $storageDir  = DIRECTORY_SEPARATOR."resources/views";
