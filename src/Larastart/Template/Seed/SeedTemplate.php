@@ -10,7 +10,7 @@ class SeedTemplate extends TemplateAbstract
     protected $source = null;
     protected $table = null;
     protected $defaultTemplatePath = __DIR__.DIRECTORY_SEPARATOR."Seed.php.template";
-    protected $defaultStoragePath = DIRECTORY_SEPARATOR."App";
+    protected $defaultStoragePath = DIRECTORY_SEPARATOR."database".DIRECTORY_SEPARATOR."seeds";
     protected $suffix = 'TableSeeder';
 
     public function __construct($table, $source, $storagePath, string $templatePath = null)
